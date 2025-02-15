@@ -1,0 +1,24 @@
+# MindCell Application Configuration Example
+
+# Minimum gas prices to accept for transactions
+minimum-gas-prices = "0.001mcell"
+
+# Pruning strategy: default, nothing, everything, custom
+pruning = "default"
+
+# API configuration
+[api]
+enable = true
+swagger = true
+address = "tcp://0.0.0.0:1317"
+
+# gRPC configuration
+[grpc]
+enable = true
+address = "0.0.0.0:9090"
+
+# State sync snapshots
+[state-sync]
+snapshot-interval = 1000
+snapshot-keep-recent = 2
+
