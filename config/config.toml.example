@@ -1,0 +1,30 @@
+# MindCell Tendermint Configuration Example
+
+# Proxy app configuration
+proxy_app = "tcp://127.0.0.1:26658"
+
+# Moniker identifier
+moniker = "mindcell-node"
+
+# Database backend: goleveldb | cleveldb | boltdb | rocksdb
+db_backend = "goleveldb"
+
+# RPC server configuration
+[rpc]
+laddr = "tcp://127.0.0.1:26657"
+cors_allowed_origins = ["*"]
+max_open_connections = 900
+
+# P2P configuration
+[p2p]
+laddr = "tcp://0.0.0.0:26656"
+max_num_inbound_peers = 40
+max_num_outbound_peers = 10
+persistent_peers = ""
+
+# Consensus configuration
+[consensus]
+timeout_propose = "3s"
+timeout_prevote = "1s"
+timeout_precommit = "1s"
+
