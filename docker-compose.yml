@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  mindcell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mindcell-node
+    ports:
+      - "26656:26656"  # P2P
+      - "26657:26657"  # RPC
+      - "26660:26660"  # Prometheus
+      - "1317:1317"    # REST API
+      - "9090:9090"    # gRPC
+    volumes:
+      - mindcell-data:/home/mindcell/.mindcell
+      - ./config:/home/mindcell/config:ro
+    environment:
+      - CHAIN_ID=mindcell-1
+      - MONIKER=docker-node
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mindcelld", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - mindcell-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: mindcell-prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - mindcell-network
+    depends_on:
+      - mindcell
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: mindcell-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - mindcell-network
+    depends_on:
+      - prometheus
+
+volumes:
+  mindcell-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  mindcell-network:
+    driver: bridge
