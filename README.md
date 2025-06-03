@@ -58,3 +58,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 Contributions are welcome! Please read our contributing guidelines before submitting PRs.
 
+## Community
+
+- Discord: https://discord.gg/mindcell
+- Twitter: https://twitter.com/mindcellnetwork
+- Forum: https://forum.mindcell.network
