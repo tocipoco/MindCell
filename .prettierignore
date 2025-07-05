@@ -1,0 +1,6 @@
+docs/
+testutil/
+scripts/
+config/
+Docker support
+.github workflows
