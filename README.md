@@ -63,3 +63,6 @@ Contributions are welcome! Please read our contributing guidelines before submit
 - Discord: https://discord.gg/mindcell
 - Twitter: https://twitter.com/mindcellnetwork
 - Forum: https://forum.mindcell.network
+## Acknowledgments
+
+Built with ❤️ using Cosmos SDK
